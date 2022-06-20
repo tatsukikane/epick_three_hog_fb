@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:epick_three_hog_fb/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const SignInPage(),
     );
   }
 }
@@ -48,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static final CollectionReference _users = _firestore.collection('users');
 
   //変数定義 非同期の変数 全て取得
-  //final Stream<QuerySnapshot> _userStream = _users.snapshots();
+  final Stream<QuerySnapshot> _userStream = _users.snapshots();
 
   //whereでnameがたつきのデータのみを取得
   //final Stream<QuerySnapshot> _userStream = _users.where('name', isEqualTo: 'たつき').snapshots();
@@ -63,12 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
   //final Stream<QuerySnapshot> _userStream = _users.orderBy('age').snapshots();
 
   //並び替え  数値の大きい順に上から並べる  文字列だったとしても数値が入っていれば適応可能
-  final Stream<QuerySnapshot> _userStream = _users.orderBy('age', descending: true).snapshots();
+  //final Stream<QuerySnapshot> _userStream = _users.orderBy('age', descending: true).snapshots();
 
 
   
-
-
 
 
 
@@ -86,6 +85,31 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     //追加後の処理
     print('userの追加完了');
+  }
+
+  //firebaseへのデータ更新関数
+  Future<void> updateUser(String docId) async{
+    await _users.doc(docId).update({
+      'name':'義教',
+      'age': 4,
+      'address.prefecture': '沖縄'
+    });
+    print('ユーザー情報の更新完了');
+  }
+
+
+  //firebaseのユーザー情報削除関数
+  Future<void> deleteUser(String docId) async {
+    await _users.doc(docId).delete();
+    print('ユーザー情報の削除完了');
+  }
+  
+  //firebaseのフィールドのみを削除
+  Future<void> deleteField(String docId) async{
+    _users.doc(docId).update({
+      //削除したいフィールド
+      'age': FieldValue.delete()
+    });
   }
 
 
@@ -127,10 +151,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
                 //dataはオブジェクトになっているので、その中のnameの値をnameに代入
                 String name = data['name'];
-                int age = data['age'];
+                int? age = data['age'];
                 return ListTile(
                   title: Text(name),
-                  subtitle: Text(age.toString()),    //数値を文字列に変換
+                  // subtitle: Text(age.toString()),    //数値を文字列に変換
+                  onTap: (){
+                    deleteField(doc.id);
+                  },
 
                 );
               }).toList(),  //list型に
