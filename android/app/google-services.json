@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "580496482257",
+    "project_id": "epick-three-hog",
+    "storage_bucket": "epick-three-hog.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580496482257:android:dd8c895b0b0573d6fdcaf0",
+        "android_client_info": {
+          "package_name": "com.example.epick_three_hog_fb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580496482257-a7mlcdrt2927khp7dmcmie0nil955p0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSFQ43kPo-dRVPc_HP5GZAT7KVsbH5PQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580496482257-a7mlcdrt2927khp7dmcmie0nil955p0t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "580496482257-dpkp8484ctsp74qjblscmve2hof01o54.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.epickThreeHogFb"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
